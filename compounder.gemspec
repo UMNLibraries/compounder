@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = "exe"
-  spec.executables   = "compounder"
+  spec.executables   << "compounder"
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency 'minitest', '~> 5.11.1'
