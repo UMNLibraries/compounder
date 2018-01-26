@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "compounder"
+require 'digest/sha1'
+
+require 'optparse'
+options = {}
+OptionParser.new do |opt|
+  opt.on('-r' , '--compounds_dir COMPOUNDS_DIRECTORY',
+    'A directory of spreadsheets containing rows of initial compound data.') do |dir|
+      "You specified the compounds directory '#{dir}'"
+      options[:compounds_dir] = dir
+    end
+    opt.on('-r' , '--output_dir OUTPUTS_DIRECTORY',
+    'A directory to contain expanded individual compound record spreadsheets.') do |dir|
+      "You specified the output directory '#{dir}'"
+      options[:output_dir] = dir
+    end
+end.parse!
+
+compounds = Compounder::Compounds.new(compounds_dir: options[:compounds_dir])
+
+compounds.transformed.map do |compound|
+  File.open("#{options[:output_dir]}/#{Digest::SHA1.hexdigest(compound)}", 'w') do |file|
+    file.write(compound)
+  end
+end
