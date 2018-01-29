@@ -22,7 +22,7 @@ end.parse!
 compounds = Compounder::Compounds.new(compounds_dir: options[:compounds_dir])
 
 compounds.transformed.map do |compound|
-  File.open("#{options[:output_dir]}/#{Digest::SHA1.hexdigest(compound)}", 'w') do |file|
+  File.open("#{options[:output_dir]}/#{Digest::SHA1.hexdigest(compound)}.tsv", 'w') do |file|
     file.write(compound)
   end
 end
