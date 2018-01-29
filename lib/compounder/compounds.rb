@@ -14,9 +14,16 @@ module Compounder
     end
 
     def collections
+      unless compounds_dir_exists?
+        raise "Compound Collections Directory '#{compounds_dir}' does not exist"
+      end
       Dir["#{compounds_dir}/*"].map do |collection_path|
         compounds_spreadsheet.new(file_path: collection_path).rows
       end
+    end
+
+    def compounds_dir_exists?
+      File.directory?(compounds_dir)
     end
 
     def transformed
