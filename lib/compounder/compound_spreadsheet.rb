@@ -10,7 +10,7 @@ module Compounder
     end
 
     def to_csv
-      CSV.generate do |csv|
+      encode (CSV.generate(:col_sep => "\t") do |csv|
         compound.each do |c|
           csv << c
         end
@@ -18,7 +18,16 @@ module Compounder
           csv << f
         end
         csv
-      end
+      end)
+    end
+
+    def encode(data)
+      return data if data.nil?
+      data.encode('UTF-8',
+                  'binary',
+                  invalid: :replace,
+                  undef: :replace,
+                  replace: '')
     end
 
     def transcripts_path
@@ -30,7 +39,7 @@ module Compounder
     def compound
       [
         output_header,
-        row[2..(row.length)],
+        row[2..(row.length)].map {|item| item },
       ]
     end
 
