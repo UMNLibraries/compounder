@@ -49,7 +49,7 @@ module Compounder
 
     def fill_down
       images.each_with_index.map do |image_name, i|
-        puts "Processing Image: #{image_name}"
+        puts "Processing Image: #{image_path}/#{image_name}"
         [
           page_title(i),
           fill_empty(1..15),
@@ -58,7 +58,7 @@ module Compounder
           dls_identifier(image_name),
           fill_empty(1..6),
           image_name
-      ].flatten
+      	].flatten
       end
     end
 
