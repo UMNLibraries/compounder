@@ -10,7 +10,7 @@ module Compounder
     end
 
     def to_csv
-      encode (CSV.generate(:col_sep => "\t") do |csv|
+      CSV.generate(:col_sep => "\t") do |csv|
         compound.each do |c|
           csv << c
         end
@@ -18,7 +18,7 @@ module Compounder
           csv << f
         end
         csv
-      end)
+      end
     end
 
     def encode(data)
@@ -53,7 +53,7 @@ module Compounder
         [
           page_title(i),
           fill_empty(1..15),
-          transcript(image_name),
+          encode(transcript(image_name)),
           fill_empty(1..19),
           dls_identifier(image_name),
           fill_empty(1..6),
