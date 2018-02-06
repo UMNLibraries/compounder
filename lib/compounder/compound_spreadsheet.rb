@@ -49,6 +49,7 @@ module Compounder
 
     def fill_down
       images.each_with_index.map do |image_name, i|
+        puts "Processing Image: #{image_name}"
         [
           page_title(i),
           fill_empty(1..15),
